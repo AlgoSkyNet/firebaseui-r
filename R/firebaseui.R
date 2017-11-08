@@ -5,7 +5,7 @@
 #' @import htmlwidgets
 #'
 #' @export
-firebaseui <- function(x, width = NULL, height = NULL, elementId = NULL) {
+firebaseui <- function(message, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
@@ -38,11 +38,11 @@ firebaseui <- function(x, width = NULL, height = NULL, elementId = NULL) {
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      //firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      //firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      //firebase.auth.PhoneAuthProvider.PROVIDER_ID
       ],
     // Terms of service url.
     tosUrl: "', tosUrl, '"
@@ -56,6 +56,9 @@ firebaseui <- function(x, width = NULL, height = NULL, elementId = NULL) {
   </script>'
     )
 
+  # head = list(headerGstatic, headerInitialise, headerConfig, headerWidget)
+  # x <- head
+
   # create widget
   firebaseui <- htmlwidgets::createWidget(
     name = 'firebaseui',
@@ -66,18 +69,18 @@ firebaseui <- function(x, width = NULL, height = NULL, elementId = NULL) {
     elementId = elementId
   )
 
-  firebaseui$dependencies <- c(
-    firebaseui$dependencies,
-     list(
-       htmltools::htmlDependency(
-         name = "fire",
-         version = "99999",
-         src = ".",
-         head = paste0(headerGstatic, headerInitialise, headerConfig, headerWidget),
-         all_files = FALSE
-       )
-     )
-  )
+  # firebaseui$dependencies <- c(
+  #   firebaseui$dependencies,
+  #    list(
+  #      htmltools::htmlDependency(
+  #        name = "fire",
+  #        version = "99999",
+  #        src = ".",
+  #        head = paste0(headerInitialise, headerConfig, headerWidget),
+  #        all_files = FALSE
+  #      )
+  #    )
+  # )
 
   return(firebaseui)
 
