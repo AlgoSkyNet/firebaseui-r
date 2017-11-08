@@ -4,12 +4,22 @@
 #'
 #' @import htmlwidgets
 #'
+#' @param authProviders
+#' @param onSuccessRedirectUrl url to redirect to on successful log in
+#' @param tosUrl url to terms of service
+#'
+#'
 #' @export
-firebaseui <- function(message, width = NULL, height = NULL, elementId = NULL) {
+firebaseui <- function(authProviders = c("google", "facebook", "twitter", "github", "email"),
+                       onSuccessRedirectUrl = NULL,
+                       tosUrl = NULL,
+                       width = NULL,
+                       height = NULL,
+                       elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = message
+    # message = message
   )
 
 
@@ -35,18 +45,15 @@ firebaseui <- function(message, width = NULL, height = NULL, elementId = NULL) {
     // FirebaseUI config.
   var uiConfig = {
     signInSuccessUrl: "', onSuccessRedirectUrl, '",
-    signInOptions: [
-      // Leave the lines as is for the providers you want to offer your users.
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      //firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      //firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      //firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ],
+    signInOptions: [',
+      signInOptions(authProviders),
+      '],
     // Terms of service url.
     tosUrl: "', tosUrl, '"
   };')
+
+  # print(signInOptions(authProviders))
+  # print(headerConfig)
 
   headerWidget <- paste0('
   // Initialize the FirebaseUI Widget using Firebase.
@@ -55,9 +62,6 @@ firebaseui <- function(message, width = NULL, height = NULL, elementId = NULL) {
   ui.start("#firebaseui-auth-container", uiConfig);
   </script>'
     )
-
-  # head = list(headerGstatic, headerInitialise, headerConfig, headerWidget)
-  # x <- head
 
   # create widget
   firebaseui <- htmlwidgets::createWidget(
@@ -69,22 +73,47 @@ firebaseui <- function(message, width = NULL, height = NULL, elementId = NULL) {
     elementId = elementId
   )
 
-  # firebaseui$dependencies <- c(
-  #   firebaseui$dependencies,
-  #    list(
-  #      htmltools::htmlDependency(
-  #        name = "fire",
-  #        version = "99999",
-  #        src = ".",
-  #        head = paste0(headerInitialise, headerConfig, headerWidget),
-  #        all_files = FALSE
-  #      )
-  #    )
-  # )
-
+  firebaseui$dependencies <- c(
+    firebaseui$dependencies,
+     list(
+       htmltools::htmlDependency(
+         name = "fire",
+         version = "99999",
+         src = ".",
+         head = paste0(headerGstatic, headerInitialise, headerConfig, headerWidget),
+         all_files = FALSE
+       )
+     )
+  )
   return(firebaseui)
+}
+
+signInOptions <- function(authProviders){
+
+  opts <- c()
+
+  if('google' %in% authProviders)
+    opts <- c(opts, 'firebase.auth.GoogleAuthProvider.PROVIDER_ID')
+
+  if('facebook' %in% authProviders)
+    opts <- c(opts, 'firebase.auth.FacebookAuthProvider.PROVIDER_ID')
+
+  if('twitter' %in% authProviders)
+    opts <- c(opts, 'firebase.auth.TwitterAuthProvider.PROVIDER_ID')
+
+  if('github' %in% authProviders)
+    opts <- c(opts, 'firebase.auth.GithubAuthProvider.PROVIDER_ID')
+
+  if('email' %in% authProviders)
+    opts <- c(opts, 'firebase.auth.EmailAuthProvider.PROVIDER_ID')
+
+
+  # firebase.auth.PhoneAuthProvider.PROVIDER_ID
+  return(paste0(opts, collapse = ','))
 
 }
+
+
 
 #' Shiny bindings for firebaseui
 #'
