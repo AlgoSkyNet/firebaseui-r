@@ -1,51 +1,26 @@
-HTMLWidgets.widget({
+/*
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-  name: 'firebaseui',
+// https://github.com/firebase/firebaseui-web/blob/master/demo/public/app.js
 
-  type: 'output',
+/**
+ * FirebaseUI initialization to be used in a Single Page application context.
+ */
 
-  factory: function(el, width, height) {
-
-    // TODO: define shared variables for this instance
-
-    return {
-
-      renderValue: function(x) {
-
-        // TODO: code to render the widget, e.g.
-        //el.innerText = x.message;
-        console.log(el);
-
-        var firDiv = document.createElement('div');
-        firDiv.id = "firebaseui-auth-container";
-        document.body.appendChild(firDiv);
-
-//        var s = document.createElement("script");
-//        s.innerHTML = "app.js";
-//        document.body.appendChild(s);
-
-
-      // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        // The start method will wait until the DOM is loaded.
-        var s = document.createElement("script");
-        s.innerHTML = 'ui.start("#firebaseui-auth-container", uiConfig)';
-        document.body.appendChild(s);
-
-
-      },
-
-      resize: function(width, height) {
-
-        // TODO: code to re-render the widget with a new size
-
-      }
-
-    };
-  }
-});
-
-
+/**
+ * @return {!Object} The FirebaseUI config.
+ */
 function getUiConfig() {
   return {
     'callbacks': {

@@ -50,7 +50,8 @@ firebaseui <- function(authProviders = c("google", "facebook", "twitter", "githu
       '],
     // Terms of service url.
     tosUrl: "', tosUrl, '"
-  };')
+  };
+      </script>')
 
   # print(signInOptions(authProviders))
   # print(headerConfig)
