@@ -23,45 +23,45 @@ firebaseui <- function(authProviders = c("google", "facebook", "twitter", "githu
   )
 
 
-  onSuccessRedirectUrl <- "http://www.symbolix.com.au"
-  tosUrl <- "http://www.symbolix.com.au"
-
+  # onSuccessRedirectUrl <- "http://www.symbolix.com.au"
+  # tosUrl <- "http://www.symbolix.com.au"
+  #
   headerGstatic <- paste0('<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>')
-
-  headerInitialise <- paste0('<script>
-    // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAFA6pgx3YT0Bh3myVEk2NHHxbgmOD_BCk",
-    authDomain: "fir-ui-r.firebaseapp.com",
-    databaseURL: "https://fir-ui-r.firebaseio.com",
-    projectId: "fir-ui-r",
-    storageBucket: "",
-    messagingSenderId: "170770909575"
-  };
-  firebase.initializeApp(config);
-  </script>')
-
-  headerConfig <- paste0('<script type="text/javascript">
-    // FirebaseUI config.
-  var uiConfig = {
-    signInSuccessUrl: "', onSuccessRedirectUrl, '",
-    signInOptions: [',
-      signInOptions(authProviders),
-      '],
-    // Terms of service url.
-    tosUrl: "', tosUrl, '"
-  };')
-
-  # print(signInOptions(authProviders))
-  # print(headerConfig)
-
-  headerWidget <- paste0('
-  // Initialize the FirebaseUI Widget using Firebase.
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  // The start method will wait until the DOM is loaded.
-  ui.start("#firebaseui-auth-container", uiConfig);
-  </script>'
-    )
+  #
+  # headerInitialise <- paste0('<script>
+  #   // Initialize Firebase
+  # var config = {
+  #   apiKey: "AIzaSyAFA6pgx3YT0Bh3myVEk2NHHxbgmOD_BCk",
+  #   authDomain: "fir-ui-r.firebaseapp.com",
+  #   databaseURL: "https://fir-ui-r.firebaseio.com",
+  #   projectId: "fir-ui-r",
+  #   storageBucket: "",
+  #   messagingSenderId: "170770909575"
+  # };
+  # firebase.initializeApp(config);
+  # </script>')
+  #
+  # headerConfig <- paste0('<script type="text/javascript">
+  #   // FirebaseUI config.
+  # var uiConfig = {
+  #   signInSuccessUrl: "', onSuccessRedirectUrl, '",
+  #   signInOptions: [',
+  #     signInOptions(authProviders),
+  #     '],
+  #   // Terms of service url.
+  #   tosUrl: "', tosUrl, '"
+  # };')
+  #
+  # # print(signInOptions(authProviders))
+  # # print(headerConfig)
+  #
+  # headerWidget <- paste0('
+  # // Initialize the FirebaseUI Widget using Firebase.
+  # var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  # // The start method will wait until the DOM is loaded.
+  # ui.start("#firebaseui-auth-container", uiConfig);
+  # </script>'
+  #   )
 
   # create widget
   firebaseui <- htmlwidgets::createWidget(
@@ -80,7 +80,8 @@ firebaseui <- function(authProviders = c("google", "facebook", "twitter", "githu
          name = "fire",
          version = "99999",
          src = ".",
-         head = paste0(headerGstatic, headerInitialise, headerConfig, headerWidget),
+         #head = paste0(headerGstatic, headerInitialise, headerConfig, headerWidget),
+         head = headerGstatic,
          all_files = FALSE
        )
      )
