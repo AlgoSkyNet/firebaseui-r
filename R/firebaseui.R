@@ -19,6 +19,12 @@ firebaseui <- function(authProviders = c("google", "facebook", "twitter", "githu
 
   # forward options using x
   x = list(
+    api_key = "AIzaSyAFA6pgx3YT0Bh3myVEk2NHHxbgmOD_BCk",
+    auth_domain = "fir-ui-r.firebaseapp.com",
+    database_url = "https://fir-ui-r.firebaseio.com",
+    project_id = "fir-ui-r",
+    storage_bucket = "",
+    messaging_sender_id = "170770909575"
     # message = message
   )
 
@@ -26,7 +32,13 @@ firebaseui <- function(authProviders = c("google", "facebook", "twitter", "githu
   # onSuccessRedirectUrl <- "http://www.symbolix.com.au"
   # tosUrl <- "http://www.symbolix.com.au"
   #
-  headerGstatic <- paste0('<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>')
+  headerGstatic <- paste0('
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>')
   #
   # headerInitialise <- paste0('<script>
   #   // Initialize Firebase
